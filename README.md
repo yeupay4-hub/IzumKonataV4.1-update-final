@@ -1,6 +1,8 @@
 ## Hi everybody!
 -> This project will no longer be sold, so I will share it for free with you.
 
+-> Using this obf for bad purposes, the owner will not be responsible!
+
 ## 🌀 IzumKonata Obfuscator
 
 -> High-Speed Obfuscation Engine – Advanced Anti-Tamper – Multi-Layer Compression
@@ -74,15 +76,31 @@ Random junk code is inserted into every block.
 
 ```mermaid
 graph TD
-    A[Original Python Code] --> B[F-String Conversion]
-    B --> C[Hidden integration]
-    C --> D[Obfuscator string/integer]
-    D --> E[Junk Code Injection]
-    E --> F[AST Compilation]
-    F --> G[Marshal Serialization]
-    G --> H[Multi-Layer Compression]
-    H --> I[Custom alphanumeric character encoding]
-    I --> J[Protected Output File]
+    A[User Input Python Code] --> AA[Inject Anti-Tamper Layer]
+    AA --> AB[Inject Anti-Debug + Anti-Proxy + Anti-Customize]
+    AB --> AC[Inject Double Runtime Integrity Check]
+
+    AC --> B[AST Parse Source Code]
+    B --> C[JoinedStr → Raw String Transform (cv)]
+    C --> D[Hide Builtin Functions<br>(replace with getattr(builtins))]
+
+    D --> E[Obfuscate Literals<br>strings → lambdas, int → 2010-i]
+    
+    E --> F[Junk Code Injection<br>(random if/while/lambda crash logic)]
+
+    F --> G[AST Unparse to Python Source]
+
+    G --> H[Compile to Python Code Object]
+    H --> I[Marshal Serialize<br>(marshal.dumps)]
+
+    I --> J[LZMA Compression]
+    J --> K[Zlib Compression]
+    K --> L[BZ2 Compression]
+    L --> M[Base85 Encoding]
+
+    M --> N[Insert Encoded Bytecode Into Template (Lobby)]
+    N --> O[Rewrite OWNER, USER, GLOBAL CRC]
+    O --> P[Finalize Output File: obf-<name>.py]
 ```
 
 ## 🚀 Installation

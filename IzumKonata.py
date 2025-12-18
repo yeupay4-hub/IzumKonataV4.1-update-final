@@ -1,3 +1,4 @@
+# FINAL
 try:
     import ast, random, marshal, base64, bz2, zlib, lzma, time, sys, inspect, hashlib, os, sys, builtins, requests, types
     from ast import *
@@ -1163,5 +1164,6 @@ final_output = final_output.replace("__GLOBALS__", final_gbl)
 open("obf-"+file_name,'wb').write(final_output.encode())
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), f'-> Execution time {time.time()-st:.3f}s'))
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), f'-> Saved file name {"obf-"+file_name}'))
+
 
 

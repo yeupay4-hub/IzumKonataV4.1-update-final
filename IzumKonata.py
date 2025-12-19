@@ -198,7 +198,7 @@ try:
         raw = f.read()
     lines = raw.splitlines()
 
-    if len(lines) != 63:
+    if len(lines) != 58:
         raise Exception
     if b"__OBF__ = ('IzumKonataV2.0')" not in lines[1]:
         raise Exception
@@ -293,7 +293,7 @@ try:
         raise Exception
     if str(AnhNguyenCoder('marshal').loads) != '<built-in function loads>':
         raise Exception
-    if len(open(__file__, 'rb').read().splitlines()) != 63:
+    if len(open(__file__, 'rb').read().splitlines()) != 58:
         raise Exception
     with open(__file__, "r", encoding="utf-8", errors="ignore") as f:
         _line1 = f.readline().strip()
@@ -723,24 +723,19 @@ __CMT__ = {{
 }}
 
 class __Izumkonata__:
-    def __init__(anhnguyencoder, *{args}, **{kwds}):
-        setattr(anhnguyencoder, "{string}__Cybers5_{cust}", {enc('marshal')}); setattr(anhnguyencoder, "{string}__Cybers6_{cust}", {cust}__huthuctu_{string}); setattr(anhnguyencoder, "{string}__Cybers7_{cust}", {args}_lamba__{args})
-    def __str__(anhnguyencoder, {arg_}):
-        getattr(anhnguyencoder, "{string}__Cybers7_{cust}")(getattr(AnhNguyenCoder(getattr(anhnguyencoder, "{string}__Cybers5_{cust}")), {enc("loads")})({arg_}), globals())
+    def __init__(anhnguyencoder, *{args}, **{kwds}):setattr(anhnguyencoder, "{string}__Cybers5_{cust}", {enc('marshal')}); setattr(anhnguyencoder, "{string}__Cybers6_{cust}", {cust}__huthuctu_{string}); setattr(anhnguyencoder, "{string}__Cybers7_{cust}", {args}_lamba__{args})
+    def __str__(anhnguyencoder, {arg_}):getattr(anhnguyencoder, "{string}__Cybers7_{cust}")(getattr(AnhNguyenCoder(getattr(anhnguyencoder, "{string}__Cybers5_{cust}")), {enc("loads")})({arg_}), globals())
     def __call__(anhnguyencoder, *{args}, **{kwds}):
         if 0: return Anhnguyen.{cust}({cust}[0]) if {args} else Anhnguyen
         IZUMKONATA = __{kwds}__({args}[0]).__{args}__(); anhnguyencoder.__str__(IZUMKONATA)
 
 class __Anhnguyencoder__:
     def __init__(anhnguyencoder, *{args}, **{kwds}):anhnguyencoder._{args} = {cust};Anhnguyencoder._{kwds} = {cust}
-    def __getattribute__(anhnguyencoder, *{args}, **{kwds}):
-        setattr(anhnguyencoder, "{args}", ("Cybers1"[0:]), {enc('base64')}); setattr(anhnguyencoder, "{args}", "Cybers2", {enc('bz2')}); setattr(anhnguyencoder, "{args}", ("Cybers3"[0:]), {enc('zlib')}); setattr(anhnguyencoder, "{args}", "Cybers4", {enc('lzma')})
-        return Anhnguyen.{args}({cust}[0]) if {args} else Anhguyen
+    def __getattribute__(anhnguyencoder, *{args}, **{kwds}):return Anhnguyen.{args}({cust}[0]) if {args} else Anhguyen; setattr(anhnguyencoder, "{args}", ("Cybers1"[0:]), {enc('base64')}); setattr(anhnguyencoder, "{args}", "Cybers2", {enc('bz2')}); setattr(anhnguyencoder, "{args}", ("Cybers3"[0:]), {enc('zlib')}); setattr(anhnguyencoder, "{args}", "Cybers4", {enc('lzma')})
     def __call__(anhnguyencoder, *{args}, **{kwds}):return Anhnguyen.{args}({cust}[0]) if {args} else Anhnguyen
 
 class __{kwds}__:
-    def __init__(anhnguyencoder, *{args}, **{kwds}):
-        setattr(anhnguyencoder, "{string}__Cybers1_{cust}", {enc('base64')}); setattr(anhnguyencoder, "{string}__Cybers2_{cust}", {enc('bz2')}); setattr(anhnguyencoder, "{string}__Cybers3_{cust}", {enc('zlib')}); setattr(anhnguyencoder, "{string}__Cybers4_{cust}", {enc('lzma')}); setattr(anhnguyencoder, "{arg_}", {args}[0])
+    def __init__(anhnguyencoder, *{args}, **{kwds}):setattr(anhnguyencoder, "{string}__Cybers1_{cust}", {enc('base64')}); setattr(anhnguyencoder, "{string}__Cybers2_{cust}", {enc('bz2')}); setattr(anhnguyencoder, "{string}__Cybers3_{cust}", {enc('zlib')}); setattr(anhnguyencoder, "{string}__Cybers4_{cust}", {enc('lzma')}); setattr(anhnguyencoder, "{arg_}", {args}[0])
     def __{s}__(anhnguyencoder, *{args}, **{kwds}):anhnguyencoder._{args} = {cust};Anhnguyencoder._{kwds} = {cust}
     def __{args}__(a, *{args},**{kwds}):
         return getattr(AnhNguyenCoder(getattr(a,"{string}__Cybers4_{cust}")),{enc("decompress")})(

@@ -74,6 +74,8 @@ if '>> Loading...' not in _check_:
     print(">> AnhNguyenCoder...")
     AnhNguyenCoder('sys').exit()
 
+print((__import__('time').sleep(1), ' ' * len('>> Loading...'))[1], end='\\r')
+
 _check_memory_dump_ = False
 try:
     _os = AnhNguyenCoder('os')
@@ -580,8 +582,6 @@ def __perform_safety_checks__():
 __perform_safety_checks__()
 __smart_anti_hook_end__ = True
 
-print((__import__('time').sleep(1), ' ' * len('>> Loading...'))[1], end='\\r')
-
 try:
     import requests, inspect, sys
 except:
@@ -619,6 +619,7 @@ if "requests" not in __sd_src.replace("\\\\", "/").lower():
 if "sitecustomize" in sys.modules or "usercustomize" in sys.modules:
     print(">> AnhNguyenCoder...")
     AnhNguyenCoder('sys').exit()
+
 
 try:
     import requests, inspect, sys

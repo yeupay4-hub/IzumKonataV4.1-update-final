@@ -762,7 +762,7 @@ class __Konata__:
         else:
             print(">> Loading...", end="\\r")
 
-__Konata__()()
+__Konata__()(); (lambda {k}:(0 and {k}(), {k}()))(lambda *{args}, **{kwds}: None)
 
 try:__Izumkonata__()(bytecode)
 except Exception as {kwds}:

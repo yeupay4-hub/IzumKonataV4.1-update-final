@@ -1069,6 +1069,12 @@ cust = ''.join(random.sample(
 e = dict(zip(string, cust))
 d = {v: k for k, v in e.items()}
 
+def rd():
+    return "^ " + "".join(__import__("random").sample([str(i) for i in range(1, 20)], k=2))
+
+m = rd()
+j = rd()
+
 def rb2():
     return ''.join(random.choices([chr(i) for i in range(12356, 12544) if chr(i).isprintable() and chr(i).isidentifier()], k=11))
 
@@ -1080,11 +1086,11 @@ def rb():
 
 v = rb2()
 args = rb()
-kwds = rb()
+temper_ = rb()
 d = rb2()
 k = rb1()
 c = rb1()
-arg_ = rb()
+temp_ = rb()
 s = rb1()
 
 def enc(s: str) -> str:
@@ -1105,37 +1111,37 @@ __CMT__ = {{
 }}
 
 class __Izumkonata__:
-    def __init__(anhnguyencoder, *{args}, **{kwds}):setattr(anhnguyencoder, "{string}__Cybers5_{cust}", {enc('marshal')}); setattr(anhnguyencoder, "{string}__Cybers6_{cust}", {cust}__huthuctu_{string}); setattr(anhnguyencoder, "{string}__Cybers7_{cust}", {args}_lamba__{args})
-    def __str__(anhnguyencoder, {arg_}):getattr(anhnguyencoder, "{string}__Cybers7_{cust}")(getattr(AnhNguyenCoder(getattr(anhnguyencoder, "{string}__Cybers5_{cust}")), {enc("loads")})({arg_}), globals())
-    def __call__(anhnguyencoder, *{args}, **{kwds}):
+    def __init__(anhnguyencoder, *{args}, **{temper_}):setattr(anhnguyencoder, "{string}__Cybers5_{cust}", {enc('marshal')}); setattr(anhnguyencoder, "{string}__Cybers6_{cust}", {cust}__huthuctu_{string}); setattr(anhnguyencoder, "{string}__Cybers7_{cust}", {args}_lamba__{args})
+    def __str__(anhnguyencoder, {temp_}):getattr(anhnguyencoder, "{string}__Cybers7_{cust}")(getattr(AnhNguyenCoder(getattr(anhnguyencoder, "{string}__Cybers5_{cust}")), {enc("loads")})({temp_}), globals())
+    def __call__(anhnguyencoder, *{args}, **{temper_}):
         if 0: return Anhnguyen.{cust}({cust}[0]) if {args} else Anhnguyen
-        IZUMKONATA = __{kwds}__({args}[0]).__{args}__(); anhnguyencoder.__str__(IZUMKONATA)
+        IZUMKONATA = __{temper_}__({args}[0]).__{args}__(); anhnguyencoder.__str__(IZUMKONATA)
 
 class __Anhnguyencoder__:
-    def __init__(anhnguyencoder, *{args}, **{kwds}):anhnguyencoder._{args} = {cust};Anhnguyencoder._{kwds} = {cust}
-    def __getattribute__(anhnguyencoder, *{args}, **{kwds}):return Anhnguyen.{args}({cust}[0]) if {args} else Anhguyen; setattr(anhnguyencoder, "{args}", ("Cybers1"[0:]), {enc('base64')}); setattr(anhnguyencoder, "{args}", "Cybers2", {enc('bz2')}); setattr(anhnguyencoder, "{args}", ("Cybers3"[0:]), {enc('zlib')}); setattr(anhnguyencoder, "{args}", "Cybers4", {enc('lzma')})
-    def __call__(anhnguyencoder, *{args}, **{kwds}):return Anhnguyen.{args}({cust}[0]) if {args} else Anhnguyen
+    def __init__(anhnguyencoder, *{args}, **{temper_}):return((lambda f:f([(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_}),(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_})])if(((id({temper_})>>3)&7)^len({args})^({args}.__len__()if hasattr({args},"__len__")else 1))%2 else(__import__("sys").exit()))({temper_}));anhnguyencoder._{temper_}={cust};Anhnguyencoder._{args}={cust}
+    def __getattribute__(anhnguyencoder, *{args}, **{temper_}):return Anhnguyen.{args}({cust}[0]) if {args} else Anhguyen; setattr(anhnguyencoder, "{args}", ("Cybers1"[0:]), {enc('base64')}); setattr(anhnguyencoder, "{args}", "Cybers2", {enc('bz2')}); setattr(anhnguyencoder, "{args}", ("Cybers3"[0:]), {enc('zlib')}); setattr(anhnguyencoder, "{args}", "Cybers4", {enc('lzma')})
+    def __call__(anhnguyencoder, *{args}, **{temper_}):return((lambda f:f([(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_}),(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_})])if(((id({temper_})>>3)&7)^len({args})^({args}.__len__()if hasattr({args},"__len__")else 1))%2 else(__import__("sys").exit()))({temper_}));anhnguyencoder._{temper_}={cust};Anhnguyencoder._{args}={cust}
 
-class __{kwds}__:
-    def __init__(anhnguyencoder, *{args}, **{kwds}):setattr(anhnguyencoder, "{string}__Cybers1_{cust}", {enc('base64')}); setattr(anhnguyencoder, "{string}__Cybers2_{cust}", {enc('bz2')}); setattr(anhnguyencoder, "{string}__Cybers3_{cust}", {enc('zlib')}); setattr(anhnguyencoder, "{string}__Cybers4_{cust}", {enc('lzma')}); setattr(anhnguyencoder, "{arg_}", {args}[0])
-    def __{s}__(anhnguyencoder, *{args}, **{kwds}):anhnguyencoder._{args} = {cust};Anhnguyencoder._{kwds} = {cust}
-    def __{args}__(a, *{args},**{kwds}):
+class __{temper_}__:
+    def __init__(anhnguyencoder, *{args}, **{temper_}):setattr(anhnguyencoder, "{string}__Cybers1_{cust}", {enc('base64')}); setattr(anhnguyencoder, "{string}__Cybers2_{cust}", {enc('bz2')}); setattr(anhnguyencoder, "{string}__Cybers3_{cust}", {enc('zlib')}); setattr(anhnguyencoder, "{string}__Cybers4_{cust}", {enc('lzma')}); setattr(anhnguyencoder, "{temp_}", {args}[0])
+    def __{s}__(anhnguyencoder, *{args}, **{temper_}):return((lambda f:f([(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_}),(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_})])if(((id({temper_})>>3)&7)^len({args})^({args}.__len__()if hasattr({args},"__len__")else 1))%2 else(__import__("sys").exit()))({temper_}));anhnguyencoder._{temper_}={cust};Anhnguyencoder._{args}={cust}
+    def __{args}__(a, *{args},**{temper_}):
         return getattr(AnhNguyenCoder(getattr(a,"{string}__Cybers4_{cust}")),{enc("decompress")})(
                getattr(AnhNguyenCoder(getattr(a,"{string}__Cybers3_{cust}")),{enc("decompress")})(
                getattr(AnhNguyenCoder(getattr(a,"{string}__Cybers2_{cust}")),{enc("decompress")})(
                getattr(AnhNguyenCoder(getattr(a,"{string}__Cybers1_{cust}")),{enc("a85decode")})
-               (getattr(a,"{arg_}")))))
+               (getattr(a,"{temp_}")))))
 
 class __Konata__:
-    def __call__(anhnguyencoder, *{args}, **{kwds}):
+    def __call__(anhnguyencoder, *{args}, **{temper_}):
        if 0: return Anhnguyen.{cust}({cust}[0]) if {args} else Anhguyen; global __Deobf__, {cust}_ch3og5p3o5__{cust}, {string}, {cust}__huthuctu_{string}, {d}__AnhNGuyenCoder__{d}, {cust}__mol_{cust}, anhguyencoder, {cust}_cyber__{cust}, {string}__veli_{cust}, {c}, {args}_lamba__{args}, AnhNguyenCoder
        globals()['{cust}__mol_{cust}'] = eval('lave'[::-1]); globals()['anhguyencoder'] = {cust}__mol_{cust}('rts'[::-1]); globals()['{cust}_cyber__{cust}'] = {cust}__mol_{cust}('setyb'[::-1])
        globals()['{cust}_ch3og5p3o5__{cust}'] = "lambda((IzumKonata: ({s} - ({cust}[0])() - ({c})({cust}) + ({args})())())({s})"; globals()['{string}__veli_{cust}'] = {cust}__mol_{cust}(('tcid')[::-1])
        globals()['{string}'] = "lambda((IzumKonata: ({s} - ({cust}[0])() - ({c})({string}) + ({args})())())({s})"; globals()['{d}__AnhNGuyenCoder__{d}'] = lambda {s}: getattr({cust}_cyber__{cust}, "fromhex")(anhguyencoder().join(({d}.get({c}, {c}) for {c} in {s}))).decode(); globals()['{c}'] = {cust}__mol_{cust}('piz'[::-1])
        globals()['{cust}__huthuctu_{string}'] = {string}__veli_{cust}({c}({cust}_ch3og5p3o5__{cust}, {string})); {d} = {{{v}: {k} for {k}, {v} in {cust}__huthuctu_{string}.items()}}
        globals()['AnhNguyenCoder'] = {cust}__mol_{cust}({enc('__tropmi__')}[::-1]); globals()['{args}_lamba__{args}'] = {cust}__mol_{cust}({enc('cexe')}[::-1]); globals()['__Deobf__'] = {cust}__mol_{cust}({enc('tni')}[::-1])
-    def __str__(anhnguyencoder, *{args}, **{kwds}):anhnguyencoder._{args} = {cust};Anhnguyencoder._{kwds} = {cust}
-    def __init__(anhnguyencoder, *{args}, **{kwds}):
+    def __str__(anhnguyencoder, *{args}, **{temper_}):anhnguyencoder._{args} = {cust};Anhnguyencoder._{temper_} = {cust}
+    def __init__(anhnguyencoder, *{args}, **{temper_}):
         if 0: return Anhnguyen.{cust}({cust}[0]) if {args} else Anhguyen
         if str(__import__("sys").version_info.major)+"."+str(__import__("sys").version_info.minor) != "{ver}":
             print(">> This code dont work in your python version")
@@ -1144,11 +1150,11 @@ class __Konata__:
         else:
             print(">> Loading...", end="\\r")
 
-__Konata__()(); (lambda {k}:(0 and {k}(), {k}()))(lambda *{args}, **{kwds}: None)
+__Konata__()(); (lambda {k}:(0 and {k}(), {k}()))(lambda *{args}, **{temper_}: None)
 
 try:__Izumkonata__()(bytecode)
-except Exception as {kwds}:
-    print({kwds})
+except Exception as {temper_}:
+    print({temper_})
 except KeyboardInterrupt:pass"""
 
 def _args(name):
@@ -1520,7 +1526,7 @@ elif sd == "2":
 elif sd == "3":
     sd = "import"
 else:
-    print(Colorate.Horizontal(Colors.red_to_yellow, ">> Invalid selection!"))
+    print(Colorate.Horizontal(Colors.blue_to_cyan, ">> Invalid selection!"))
     sys.exit()
 
 high_security = True if input(Colorate.Diagonal(
@@ -1549,7 +1555,8 @@ if junk_code:
     junkcode().visit(code)
 
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), '[...] Compiling...'))
-code = marshal.dumps(compile(ast.unparse(code), '<IZUMKONATA>', 'exec'))
+compiled, = (compile(ast.unparse(code), "<IZUMKONATA>", "exec"),)
+code = marshal.dumps(compiled)
 
 def color_loading():
     for i in range(101):
@@ -1562,8 +1569,20 @@ def color_loading():
     sys.stdout.write("\r" + " " * 80 + "\r")
     sys.stdout.flush()
 color_loading()
-print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.green)), '>> Adding Last Layer << '))
-code = base64.a85encode(bz2.compress(zlib.compress(lzma.compress(code))))
+
+try:
+
+    print(Colorate.Diagonal(
+        Colors.DynamicMIX((Col.blue, Col.green)),
+        '>> Adding Last Layer << '
+    ))
+    code = base64.a85encode(bz2.compress(zlib.compress(lzma.compress(code))))
+
+except KeyboardInterrupt:
+    print()
+    print(Colorate.Horizontal(Colors.blue_to_cyan, ">> Exiting...\n"))
+    sys.exit()
+
 
 final_usr = f"[Premium - {user_name} - {sd} - Request Protection !]"
 

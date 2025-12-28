@@ -167,8 +167,8 @@ def __quick_hook_check__():
         return True
 
 __check_all_hooks_and_exit__()
+
 print((__import__('time').sleep(0), ' ' * len('>> Loading...'))[1], end='\\r')
-print(' ' * len('>> Loanding...'), end='\\r')
 """
 antitamper1 = """
 __smart_anti_hook_start__ = True

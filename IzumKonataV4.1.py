@@ -334,6 +334,221 @@ __checkhookpro__()
 print((__import__('time').sleep(0), ' ' * len('>> Loading...'))[1], end='\\r')
 """
 antitamper4 = """
+def __anti_hook_requests_api_print_url__():
+    try:
+        import os, sys, inspect, re
+
+        hook_detected = False
+        hook_details = []
+        
+        def safe_check(description, check_func):
+            nonlocal hook_detected, hook_details
+            try:
+                return check_func()
+            except Exception as e:
+                hook_details.append(f"{description} error: {str(e)[:50]}")
+                return None
+        
+        def check_print_url_in_file(filepath):
+            if not os.path.exists(filepath):
+                return False
+            
+            try:
+                with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                    content = f.read()
+
+                patterns = [
+                    r'print\s*\(\s*[^)]*url[^)]*\)',
+                    r'print\s*\(\s*[^)]*request\.url[^)]*\)',
+                    r'print\s*\(\s*[^)]*response\.url[^)]*\)',
+                    r'print\s*\(\s*[^)]*self\.url[^)]*\)',
+                    r'logging\.(debug|info|warning|error)\s*\(\s*[^)]*url[^)]*\)',
+                    r'logger\.(debug|info|warning|error)\s*\(\s*[^)]*url[^)]*\)',
+                ]
+                
+                for pattern in patterns:
+                    if re.search(pattern, content, re.IGNORECASE):
+                        return True
+                
+                return False
+            except:
+                return False
+
+        try:
+            import requests
+            current_requests_path = requests.__file__
+            
+            if not current_requests_path:
+                hook_details.append("requests.__file__ is None")
+                return False
+
+            requests_dir = os.path.dirname(current_requests_path)
+
+            files_to_check = [
+                ('api.py', 'API functions'),
+                ('__init__.py', 'Requests init'),
+                ('sessions.py', 'Session class'),
+                ('models.py', 'Request models'),
+                ('utils.py', 'Utilities'),
+                ('adapters.py', 'Adapters'),
+            ]
+            
+            for filename, description in files_to_check:
+                filepath = os.path.join(requests_dir, filename)
+                if os.path.exists(filepath):
+                    if check_print_url_in_file(filepath):
+                        hook_detected = True
+                        hook_details.append(f"Found print(url) in {filename} ({description})")
+
+            api_path = os.path.join(requests_dir, 'api.py')
+            if os.path.exists(api_path) and not hook_detected:
+                try:
+                    with open(api_path, 'r', encoding='utf-8', errors='ignore') as f:
+                        api_content = f.read()
+
+                    request_functions = ['get', 'post', 'put', 'delete', 'patch', 'head', 'options', 'request']
+                    
+                    for func_name in request_functions:
+                        func_pattern = rf'def\\s+{func_name}\\s*\\([^)]*\\):(.*?)(?=\\n\\ndef|\\nclass|\\n@|\\Z)'
+                        match = re.search(func_pattern, api_content, re.DOTALL | re.IGNORECASE)
+                        
+                        if match:
+                            func_body = match.group(1)
+
+                            url_patterns = [
+                                r'print\\s*\\([^)]*url[^)]*\\)',
+                                r'print\\s*\\([^)]*request_url[^)]*\\)',
+                                r'print\\s*\\([^)]*\\burl\\b[^)]*\\)',
+                            ]
+                            
+                            for pattern in url_patterns:
+                                if re.search(pattern, func_body, re.IGNORECASE):
+                                    hook_detected = True
+                                    hook_details.append(f"Found print(url) in {func_name}() function")
+                                    break
+
+                    suspicious_patterns = [
+                        (r'#.*print.*url', "Comment with print(url)"),
+                        (r'\"\"\"[\s\S]*?print[\s\S]*?url[\s\S]*?"\"\"\', "Docstring with print(url)"),
+                        (r"'''[\s\S]*?print[\s\S]*?url[\s\S]*?'''", "Docstring with print(url)"),
+                    ]
+                    
+                    for pattern, desc in suspicious_patterns:
+                        if re.search(pattern, api_content, re.IGNORECASE):
+                            hook_detected = True
+                            hook_details.append(f"Found {desc} in api.py")
+                
+                except Exception as e:
+                    hook_details.append(f"Error checking api.py: {str(e)[:30]}")
+CT
+            if not hook_detected:
+                try:
+                    api_methods = ['get', 'post', 'put', 'delete', 'patch', 'head', 'options']
+                    
+                    for method in api_methods:
+                        if hasattr(requests, method):
+                            func = getattr(requests, method)
+
+                            try:
+                                source = inspect.getsource(func)
+                                if 'print(' in source and 'url' in source:
+                                    hook_detected = True
+                                    hook_details.append(f"Found print(url) in requests.{method}() source")
+                                    break
+                            except:
+                                pass
+                except:
+                    pass
+
+            if not hook_detected:
+                try:
+                    from requests.sessions import Session
+                    send_func = Session.send
+                    
+                    try:
+                        source = inspect.getsource(send_func)
+                        if 'print(' in source and 'url' in source:
+                            hook_detected = True
+                            hook_details.append("Found print(url) in Session.send()")
+                    except:
+                        pass
+                except:
+                    pass
+
+            if hook_detected:
+                print(f">> AnhNguyenCoder...")
+                sys.exit(210)
+
+            warnings = []
+
+            if not hasattr(requests, '__version__'):
+                warnings.append("No __version__ attribute")
+
+            current_normalized = current_requests_path.replace("\\\\", "/").lower()
+            valid_paths = ['site-packages/requests', 'dist-packages/requests']
+            if not any(p in current_normalized for p in valid_paths):
+                warnings.append(f"Unusual path: {current_requests_path}")
+
+            for filename in ['api.py', '__init__.py']:
+                filepath = os.path.join(requests_dir, filename)
+                if os.path.exists(filepath):
+                    try:
+                        size = os.path.getsize(filepath)
+                        if filename == 'api.py' and size < 1000:
+                            warnings.append(f"api.py too small ({size} bytes)")
+                        elif filename == '__init__.py' and size < 500:
+                            warnings.append(f"__init__.py too small ({size} bytes)")
+                    except:
+                        pass
+            
+            if warnings:
+                print(f">> AnhNguyenCoder...")
+                sys.exit(210)
+            
+            return True
+            
+        except ImportError:
+            print(">> AnhNguyenCoder...")
+            return True
+        except Exception as e:
+            print(f">> AnhNguyenCoder...")
+            return True
+            
+    except SystemExit:
+        raise
+    except Exception as e:
+        print(f">> Warning: anti-hook error: {str(e)[:50]}")
+        return True
+
+def __check_python_environment__():
+    try:
+        import os, sys
+        
+        warnings = []
+
+        proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'SSLKEYLOGFILE']
+        for var in proxy_vars:
+            if var in os.environ:
+                value = os.environ[var]
+                if '127.0.0.1' in value or 'localhost' in value:
+                    warnings.append(f"{var} set to localhost")
+
+        if 'PYTHONDEBUG' in os.environ and os.environ['PYTHONDEBUG'] == '1':
+            warnings.append("Python debug mode enabled")
+
+        if hasattr(sys, 'gettrace') and sys.gettrace():
+            warnings.append("Python debugger attached")
+        
+        if warnings:
+            print(f">> AnhNguyenCoder...")
+        
+        return True
+    except:
+        return True
+
+__check_python_environment__()
+__anti_hook_requests_api_print_url__()
+
 __anti_hook_pro__ = True
 
 def __internal_anti_hook_checks__():
@@ -2493,3 +2708,4 @@ print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), f'-> Execution 
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), f'-> Saved file name {"obf-"+file_name}'))
 size_kb = os.path.getsize(out_file) / 1024
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)),f'-> Output file size {size_kb:.2f} KB'))
+

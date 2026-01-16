@@ -545,7 +545,7 @@ def __quick_hook_check__():
 
 __checkhookpro__()
 
-print((__import__('time').sleep(0), ' ' * len('>> Loading...'))[1], end='\\r')
+print(' ' * len('>> Loading...'), end='\\r')
 """
 antitamper4 = r"""
 __anti_hook_pro__ = True
@@ -2693,13 +2693,6 @@ st = time.time()
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), '[...] Executing conversion...'))
 cv().visit(code)
 
-if high_security:
-    print(Colorate.Diagonal(
-        Colors.DynamicMIX((Col.blue, Col.gray)),
-        '[...] Optimizing Code...'
-    ))
-    A().visit(code)
-
 if hide_builtins:
     print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), '[...] Hide Builtins...'))
     hide().visit(code)
@@ -2714,6 +2707,10 @@ if junk_code:
     print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), '[...] Executing more junk code...'))
     junkcode1().visit(code)
     junkcode().visit(code)
+
+if high_security and random.choice([0, 1]):
+    print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)),'[...] Optimizing Code...'))
+    A().visit(code)
 
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), '[...] Compiling...'))
 compiled, = (compile(ast.unparse(code), "<IZUMKONATA>", "exec"),)

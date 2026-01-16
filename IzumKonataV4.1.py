@@ -17,13 +17,30 @@ def antibypass():
         mm = ', '.join(fx)
         return f"""((lambda __Anhnguyencoder__: __Anhnguyencoder__(*[__dat__('Biet Dzai Roi',{mm})]))(lambda *__occak__: ((lambda __thknqu__, __Anhnguyencoder__:__Anhnguyencoder__().join([*map(lambda n: __Anhnguyencoder__().format((n ^ 64)), __Anhnguyencoder__)]))(lambda: getattr(''.__class__, '__add__')('__Anhnguyencoder__', ''),lambda: "__CONCAC__"))))"""
 
+    def __spam_marshal_runtime__():
+        import marshal
+        src = "x='X'*2000000"
+        blob = marshal.dumps(compile(src, '<IZUMKONATA>', 'exec'))
+        try:
+            marshal.loads(blob)
+        except:
+            pass
+
+    def anti_decompile(co):
+        bc = bytearray(co.co_code)
+        for _ in range(1000):
+            __spam_marshal_runtime__()
+        trash = bytes((random.randint(1, 255) for _ in range(300)))
+        bc = trash + bc
+        return types.CodeType(co.co_argcount, co.co_posonlyargcount, co.co_kwonlyargcount, co.co_nlocals, co.co_stacksize, co.co_flags, bytes(bc), co.co_consts, co.co_names, co.co_varnames, co.co_filename, co.co_name, co.co_firstlineno, co.co_lnotab, co.co_freevars, co.co_cellvars)
+
     def _anti():
         antipycdc = ''
         for i in range(3050):
             antipycdc += f"__Anhnguyencoder__(__Anhnguyencoder__(__Anhnguyencoder__(__Anhnguyencoder__(__Anhnguyencoder__(__Anhnguyencoder__('\x02\x02')))))),"
         antipycdc = 'try:anhnguyen=[' + antipycdc + ']\nexcept:pass'
         text = f'\ndef __CTEVCLDZAI__(__chanankdi__):\n    return __chanankdi__\n\ntry:pass\nexcept:pass\nfinally:pass\n{antipycdc}\nfinally:int(2011-2011)\n        '
-        return f"""\ntry:\n    def __ctevcldz__(__ok__):return "__ANTI-DECOMPILER__"\n    {anti('__Anhnguyencoder__')}\nexcept:pass\nelse:pass\nfinally:pass\n{text}"""
+        return f'\ntry:\n    def __ctevcldz__(__ok__):return "__ANTI-DECOMPILER__"\n    {anti('__Anhnguyencoder__')}\nexcept:pass\nelse:pass\nfinally:pass\n{text}'
     return _anti()
 antidec = f'\n{antibypass()}\n'
 antitamper3 = '\ndef __check_module__():\n    try:\n        import os, sys\n        def caiditmemay(fl):\n            tt = 0\n            try:\n                for root, dirs, files in os.walk(fl):\n                    for file in files:\n                        if file.endswith(\'.pyc\'):\n                            continue\n                        file_path = os.path.join(root, file)\n                        try:\n                            with open(file_path, \'r\', encoding=\'utf-8\', errors=\'ignore\') as f:\n                                content = f.read()\n                                tt += len(content)\n                        except Exception:\n                            continue\n            except Exception:\n                pass\n            return tt\n\n        try:\n            requests_path = __import__(\'requests\').__file__\n            fl = os.path.dirname(requests_path)\n            tt = caiditmemay(fl)\n\n            _c = requests_path.replace(\'__init__.py\', \'api.py\')\n            _x = ""\n            try:\n                with open(_c, \'r\', encoding=\'utf-8\', errors=\'ignore\') as f:\n                    _x = f.read()\n            except:\n                pass\n            \n            _check = len(_x)\n            if _check < 1000:\n                print(">> AnhNguyenCoder...")\n                sys.exit(210)\n            if tt < 10000:\n                print(">> AnhNguyenCoder...")\n                sys.exit(210)\n                \n        except ImportError:\n            print(">> AnhNguyenCoder...")\n            sys.exit(210)\n        except Exception as e:\n            print(f">> AnhNguyenCoder...")\n            sys.exit(210)\n\n        try:\n            import pystyle\n            _pystyle_path = pystyle.__file__\n            \n            _x1 = ""\n            try:\n                with open(_pystyle_path, \'r\', encoding=\'utf-8\', errors=\'ignore\') as f:\n                    _x1 = f.read()\n            except:\n                pass\n            \n            _check1 = len(_x1)\n\n            if _check1 < 1000:\n                print(">> AnhNguyenCoder...")\n                sys.exit(210)\n        except ImportError:\n            print(">> AnhNguyenCoder...")\n            sys.exit(210)\n        except Exception as e:\n            print(f">> AnhNguyenCoder...")\n            sys.exit(210)\n        return True\n        \n    except SystemExit:\n        raise\n    except Exception as e:\n        print(f">> AnhNguyenCoder...")\n        sys.exit(210)\n\n__check_module__()\n\ndef __anti_tamper__():\n    try:\n        import sys, os, builtins, inspect\n        EXIT = 210\n        _bi = builtins.__dict__\n        for k in ("exec", "eval", "print", "__import__", "open"):\n            fn = _bi.get(k)\n            if not fn:\n                print(f">> AnhNguyenCoder...")\n                sys.exit(EXIT)\n            s = str(fn)\n            if hasattr(fn, "__code__") or hasattr(fn, "__wrapped__"):\n                print(f">> AnhNguyenCoder...")\n                sys.exit(EXIT)\n            if "built-in function" not in s:\n                print(f">> AnhNguyenCoder...")\n                sys.exit(EXIT)\n\n        try:\n            for f in inspect.stack():\n                p = (f.filename or "").lower()\n                if any(x in p for x in (\n                    "pydevd", "debugpy", "pdb",\n                    "frida", "uncompyle",\n                    "sitecustomize", "usercustomize"\n                )):\n                    sys.exit(EXIT)\n        except:\n            pass\n\n        for k in ("HTTP_PROXY", "HTTPS_PROXY", "SSLKEYLOGFILE"):\n            if k in os.environ:\n                v = os.environ[k].lower()\n                if "127.0.0.1" in v or "localhost" in v:\n                    sys.exit(EXIT)\n                if any(p in v for p in ("8080", "8888", "8889")):\n                    sys.exit(EXIT)\n\n        def _lib_len(path):\n            s = 0\n            for r, _, fs in os.walk(path):\n                for f in fs:\n                    if f.endswith(".py"):\n                        try:\n                            s += os.path.getsize(os.path.join(r, f))\n                        except:\n                            pass\n            return s\n\n        try:\n            import requests\n            rp = os.path.dirname(requests.__file__)\n            if _lib_len(rp) < 10000:\n                sys.exit(EXIT)\n\n            src = inspect.getsourcefile(requests.request) or ""\n            if "requests" not in src.replace("\\\\\\\\", "/").lower():\n                sys.exit(EXIT)\n        except:\n            print(f">> AnhNguyenCoder...")\n            sys.exit(EXIT)\n\n        try:\n            import pystyle\n            if os.path.getsize(pystyle.__file__) < 1000:\n                sys.exit(EXIT)\n        except:\n            sys.exit(EXIT)\n\n        return True\n\n    except SystemExit:\n        raise\n    except Exception:\n        print(f">> AnhNguyenCoder...")\n        sys.exit(EXIT)\n\n__anti_tamper__()\n\n'
@@ -112,23 +129,6 @@ def obfint2(i):
     lam2 = ast.Lambda(_args(rd()), ast.Call(lam3, [ast.Constant('AnhNguyenCoder')], []))
     lam1 = ast.Lambda(_args(rd()), ast.Call(lam2, [ast.Constant('AnhNguyenCoder')], []))
     return ast.Call(lam1, [ast.Constant('AnhNguyenCoder')], [])
-
-def __spam_marshal_runtime__():
-    import marshal
-    src = "x='X'*2000000"
-    blob = marshal.dumps(compile(src, '<IZUMKONATA>', 'exec'))
-    try:
-        marshal.loads(blob)
-    except:
-        pass
-
-def anti_decompile(co):
-    bc = bytearray(co.co_code)
-    for _ in range(1000):
-        __spam_marshal_runtime__()
-    trash = bytes([random.randint(1, 255) for _ in range(30000)])
-    bc = trash + bc
-    return types.CodeType(co.co_argcount, co.co_posonlyargcount, co.co_kwonlyargcount, co.co_nlocals, co.co_stacksize, co.co_flags, bytes(bc), co.co_consts, co.co_names, co.co_varnames, co.co_filename, co.co_name, co.co_firstlineno, co.co_lnotab, co.co_freevars, co.co_cellvars)
 
 def _safe_source(obj):
     try:
@@ -413,6 +413,6 @@ out_file = 'obf-' + file_name
 open('obf-' + file_name, 'wb').write(final_output.encode())
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.cyan)), '-------------------------------------------------'))
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), f'-> Execution time {time.time() - st:.3f}s'))
-print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), f"-> Saved file name {'obf-' + file_name}"))
+print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), f'-> Saved file name {'obf-' + file_name}'))
 size_kb = os.path.getsize(out_file) / 1024
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), f'-> Output file size {size_kb:.2f} KB'))

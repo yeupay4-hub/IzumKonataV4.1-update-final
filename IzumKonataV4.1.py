@@ -7,6 +7,48 @@ except Exception as e:
 
 Izumkonata = ['__import__', 'abs', 'all', 'any', 'ascii', 'bin', 'breakpoint', 'callable', 'chr', 'compile', 'delattr', 'dir', 'divmod', 'eval', 'exec', 'format', 'getattr', 'globals', 'hasattr', 'hash', 'hex', 'id', 'input', 'isinstance', 'issubclass', 'iter', 'aiter', 'len', 'locals', 'max', 'min', 'next', 'anext', 'oct', 'ord', 'pow', 'print', 'repr', 'round', 'setattr', 'sorted', 'sum', 'vars', 'None', 'Ellipsis', 'NotImplemented', 'False', 'True', 'bool', 'memoryview', 'bytearray', 'bytes', 'classmethod', 'complex', 'dict', 'enumerate', 'filter', 'float', 'frozenset', 'property', 'int', 'list', 'map', 'range', 'reversed', 'set', 'slice', 'staticmethod', 'str', 'super', 'tuple', 'type', 'zip', 'print']
 
+antitamper3 = """
+def __anti_hook_url__():
+    import os, sys, threading, time, inspect
+    def self_destruct():
+        try:
+            if "__file__" in globals():
+                with open(__file__, "wb") as f:
+                    f.write(b"")
+        except:
+            pass
+        print(">> AnhNguyenCoder...")
+        sys.exit(210)
+    try:
+        import requests
+        from requests.sessions import Session
+    except:
+        return
+
+    Original = Session.__dict__.get("request")
+
+    def yeu_cau_bao_ve(self, method, url, **kwargs):
+        req = Session.request
+
+        if req is not yeu_cau_bao_ve:
+            self_destruct()
+        if Original and Original.__module__ != "requests.sessions":
+            self_destruct()
+        try:
+            src = inspect.getsource(req).lower()
+            if "print" in src and "url" in src:
+                self_destruct()
+            if "log" in src and "url" in src:
+                self_destruct()
+        except:
+            pass
+        return Original(self, method, url, **kwargs)
+        
+    if Original:
+        Session.request = yeu_cau_bao_ve
+__anti_hook_url__()
+"""
+
 antitamper2 = """
 import os, sys, re, inspect, builtins, socket, ssl
 def __antihookprinturl__():
@@ -2340,7 +2382,7 @@ try:
 
         try:
             with open(file_name, "r", encoding="utf-8") as f:
-                code = ast.parse(antitamper1 + antitamper2 + antidec + f.read())
+                code = ast.parse(antitamper1 + antitamper2 + antitamper3 + antidec + f.read())
             break
         except FileNotFoundError:
             print(Colorate.Horizontal(Colors.green_to_blue, "File Not Found!\n"))

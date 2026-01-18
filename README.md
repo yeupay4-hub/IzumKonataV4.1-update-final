@@ -1,4 +1,6 @@
 ## Hi everybody!
+-> Bugs fixed to work with all Python versions!
+
 -> This project will no longer be sold, so I will share it for free with you.
 
 -> Using this obf for bad purposes, the owner will not be responsible!

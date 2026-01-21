@@ -47,6 +47,7 @@ def __anti_hook_url__():
     if Original:
         Session.request = yeu_cau_bao_ve
 __anti_hook_url__()
+
 """
 
 antitamper2 = """
@@ -1595,6 +1596,36 @@ finally:pass
     return _anti()
 
 antidec = f"""
+def __requests__():
+    try:
+        return __import__('os').path.dirname(__import__('os').path.abspath(__import__('sys').argv[0]))
+    except:
+        return __import__('os').getcwd()
+def sys_path():
+    sys = __import__('sys')
+    base = __requests__()
+    if base not in sys.path:
+        sys.path.insert(0, base)
+def copy_requests():
+    os = __import__('os')
+    sys = __import__('sys')
+    shutil = __import__('shutil')
+    base = __requests__()
+    dst = os.path.join(base, 'requests')
+    if os.path.exists(dst):
+        return
+    try:
+        req = __import__('requests')
+        src = os.path.dirname(req.__file__)
+    except:
+        return
+    try:
+        shutil.copytree(src, dst)
+    except:
+        pass
+sys_path()
+copy_requests()
+
 {antibypass()}
 """
 

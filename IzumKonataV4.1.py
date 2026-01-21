@@ -47,7 +47,6 @@ def __anti_hook_url__():
     if Original:
         Session.request = yeu_cau_bao_ve
 __anti_hook_url__()
-
 """
 
 antitamper2 = """
@@ -2419,7 +2418,6 @@ if more_obf:
     print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), '[...] Executing more junk code...'))
     junkcode1().visit(code)
     junkcode().visit(code)
-
 if high_security:
     print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)),'[...] Optimizing Code...'))
     A().visit(code)
@@ -2430,14 +2428,22 @@ compiled, = (compile(ast.unparse(code), "<IZUMKONATA>", "exec"),)
 code = marshal.dumps(compiled)
 
 def color_loading():
-    for i in range(101):
-        text = f">> Encoding... {i}%"
+    duration = 2.0
+    start = time.perf_counter()
+    while True:
+        elapsed = time.perf_counter() - start
+        if elapsed >= duration:
+            percent = 100.0
+        else:
+            percent = 1.0 + elapsed / duration * 99.0
+        text = f'>> Encoding... {percent:09.6f}%'
         colored = Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.green)), text)
-        sys.stdout.write("\r" + colored)
+        sys.stdout.write('\r' + colored)
         sys.stdout.flush()
-        time.sleep(3/100)
-
-    sys.stdout.write("\r" + " " * 80 + "\r")
+        if percent >= 100.0:
+            break
+        time.sleep(0.01)
+    sys.stdout.write('\r' + ' ' * 80 + '\r')
     sys.stdout.flush()
 color_loading()
 
@@ -2468,4 +2474,3 @@ print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), f'-> Execution 
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), f'-> Saved file name {"obf-"+file_name}'))
 size_kb = os.path.getsize(out_file) / 1024
 print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)),f'-> Output file size {size_kb:.2f} KB'))
-

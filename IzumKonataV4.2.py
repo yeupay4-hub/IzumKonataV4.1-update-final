@@ -1195,7 +1195,7 @@ try:
     if _line1 != "# -*- coding: utf-8 -*-":
         raise Exception
 
-    for i in range(1 + off, 57 + off):
+    for i in range(1 + off, 55 + off):
         if b"#" in lines[i] and b"# -*- coding: utf-8 -*-" not in lines[i]:
             raise Exception
 except:

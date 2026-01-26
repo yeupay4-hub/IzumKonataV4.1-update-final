@@ -51,71 +51,42 @@ def hide_url_requests():
         import requests
         from requests.adapters import HTTPAdapter
         original_send = HTTPAdapter.send
+        def strip_urls(data: bytes) -> bytes:
+            for proto in (b"http://", b"https://"):
+                while True:
+                    i = data.find(proto)
+                    if i == -1:
+                        break
+                    j = i
+                    ln = len(data)
+                    while j < ln and data[j] not in (9, 10, 13, 32, 34, 39):
+                        j += 1
+                    data = data[:i] + data[j:]
+            return data
         def safe_send(self, request, **kwargs):
             response = original_send(self, request, **kwargs)
             response.url = ""
             if hasattr(response, "request"):
                 response.request.url = ""
             try:
-                if isinstance(response.text, str):
-                    response._content = re.sub(
-                        rb'https?://\S+', b'', response.content
-                    )
+                if isinstance(response.content, (bytes, bytearray)):
+                    response._content = strip_urls(response.content)
             except:
                 pass
             return response
         HTTPAdapter.send = safe_send
-    except Exception:
+    except:
         pass
     try:
         import http.client
         http.client.HTTPConnection.debuglevel = 0
         http.client.HTTPSConnection.debuglevel = 0
-
-        _real_send = http.client.HTTPConnection.send
-        def silent_send(self, data):
-            return _real_send(self, data)
-        http.client.HTTPConnection.send = silent_send
     except:
         pass
     logging.getLogger("urllib3").setLevel(logging.CRITICAL)
     logging.getLogger("requests").setLevel(logging.CRITICAL)
     logging.getLogger("urllib3.connectionpool").disabled = True
-    try:
-        import requests
-        from requests.adapters import HTTPAdapter
-        from requests.models import PreparedRequest
-        _orig_send = HTTPAdapter.send
-        def safe_send(self, request, **kwargs):
-            resp = _orig_send(self, request, **kwargs)
-
-            resp.url = ""
-            if hasattr(resp, "request") and resp.request:
-                resp.request.url = ""
-
-            return resp
-        HTTPAdapter.send = safe_send
-        _orig_prepare = PreparedRequest.prepare
-        def safe_prepare(self, *args, **kwargs):
-            _orig_prepare(self, *args, **kwargs)
-            self._real_url = self.url
-            return self
-        PreparedRequest.prepare = safe_prepare
-
-    except:
-        pass
-    try:
-        import urllib3
-        _orig_urlopen = urllib3.connectionpool.HTTPConnectionPool.urlopen
-
-        def safe_urlopen(self, method, url, *args, **kwargs):
-            return _orig_urlopen(self, method, url, *args, **kwargs)
-
-        urllib3.connectionpool.HTTPConnectionPool.urlopen = safe_urlopen
-    except:
-        pass
     sys.settrace(None)
-
 hide_url_requests()
 """
 
@@ -1206,16 +1177,12 @@ try:
         raise Exception
     if str(AnhNguyenCoder('marshal').loads) != '<built-in function loads>':
         raise Exception
-
     with open(__file__, "rb") as f:
         raw = f.read()
     lines = raw.splitlines()
-
     off = 1 if lines and lines[0] == b"#!/bin/python3" else 0
-
-    if len(lines) != 60:
+    if len(lines) != 54:
         raise Exception
-
     if b"__OBF__ = ('IzumKonataV4.2')" not in lines[1 + off]:
         raise Exception
     if b"__OWN__ = ('Anhnguyencoder')" not in lines[2 + off]:
@@ -1238,11 +1205,10 @@ try:
         with open(__file__, "r", encoding="utf-8", errors="ignore") as f:
             f.readline()
             _line1 = f.readline().strip()
-
     if _line1 != "# -*- coding: utf-8 -*-":
         raise Exception
 
-    for i in range(1 + off, 55 + off):
+    for i in range(1 + off, 49 + off):
         if b"#" in lines[i] and b"# -*- coding: utf-8 -*-" not in lines[i]:
             raise Exception
 except:
@@ -1351,7 +1317,6 @@ try:
         if isinstance(c, str):
             if "MARSHAL" in c or "DISASM" in c or "BYTECODE" in c:
                 raise Exception
-
 except:
     try:
         with open(__file__, "wb") as f:
@@ -1376,7 +1341,7 @@ try:
         raise Exception
 
     raw_lines = open(__file__, 'rb').read().splitlines()
-    if len(raw_lines) != 60:
+    if len(raw_lines) != 54:
         raise Exception
 
     off = 1 if raw_lines and raw_lines[0] == b"#!/bin/python3" else 0
@@ -1389,6 +1354,9 @@ try:
     if _line1 != "# -*- coding: utf-8 -*-":
         raise Exception
 
+    for line in raw_lines[-3:]:
+        if b"#" in line:
+            raise Exception
 except:
     try:
         with open(__file__, "wb") as f:
@@ -1784,19 +1752,16 @@ __CMT__ = {{
     "EN": "Việc sử dụng obf này để lạm dụng mục đích xấu, người sở hữu sẽ không chịu trách nghiệm!",
     "VN": "Using this obf for bad purposes, the owner will not be responsible!"
 }}
-
 class __Izumkonata__:
     def __init__(anhnguyencoder, *{args}, **{temper_}):setattr(anhnguyencoder, "{string}__Cybers5_{cust}", {enc('marshal')}); setattr(anhnguyencoder, "{string}__Cybers6_{cust}", {cust}__huthuctu_{string}); setattr(anhnguyencoder, "{string}__Cybers7_{cust}", {args}_lamba__{args})
     def __str__(anhnguyencoder, {temp_}):getattr(anhnguyencoder, "{string}__Cybers7_{cust}")(getattr(AnhNguyenCoder(getattr(anhnguyencoder, "{string}__Cybers5_{cust}")), {enc("loads")})({temp_}), globals())
     def __call__(anhnguyencoder, *{args}, **{temper_}):
         if 0: return Anhnguyen.{cust}({cust}[0]) if {args} else Anhnguyen
         IZUMKONATA = __{temper_}__({args}[0]).__{args}__(); anhnguyencoder.__str__(IZUMKONATA)
-
 class __Anhnguyencoder__:
     def __init__(anhnguyencoder, *{args}, **{temper_}):return((lambda f:f([(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_}),(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_})])if(((id({temper_})>>3)&7)^len({args})^({args}.__len__()if hasattr({args},"__len__")else 1))%2 else(__import__("sys").exit()))({temper_}));anhnguyencoder._{temper_}={cust};Anhnguyencoder._{args}={cust}
     def __getattribute__(anhnguyencoder, *{args}, **{temper_}):return Anhnguyen.{args}({cust}[0]) if {args} else Anhguyen; setattr(anhnguyencoder, "{args}", ("Cybers1"[0:]), {enc('base64')}); setattr(anhnguyencoder, "{args}", "Cybers2", {enc('bz2')}); setattr(anhnguyencoder, "{args}", ("Cybers3"[0:]), {enc('zlib')}); setattr(anhnguyencoder, "{args}", "Cybers4", {enc('lzma')})
     def __call__(anhnguyencoder, *{args}, **{temper_}):return((lambda f:f([(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_}),(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_})])if(((id({temper_})>>3)&7)^len({args})^({args}.__len__()if hasattr({args},"__len__")else 1))%2 else(__import__("sys").exit()))({temper_}));anhnguyencoder._{temper_}={cust};Anhnguyencoder._{args}={cust}
-
 class __{temper_}__:
     def __init__(anhnguyencoder, *{args}, **{temper_}):setattr(anhnguyencoder, "{string}__Cybers1_{cust}", {enc('base64')}); setattr(anhnguyencoder, "{string}__Cybers2_{cust}", {enc('bz2')}); setattr(anhnguyencoder, "{string}__Cybers3_{cust}", {enc('zlib')}); setattr(anhnguyencoder, "{string}__Cybers4_{cust}", {enc('lzma')}); setattr(anhnguyencoder, "{temp_}", {args}[0])
     def __{s}__(anhnguyencoder, *{args}, **{temper_}):return((lambda f:f([(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_}),(lambda {args}:{temper_}{m})({temper_}),(lambda {temper_}:{args}{j})({temper_})])if(((id({temper_})>>3)&7)^len({args})^({args}.__len__()if hasattr({args},"__len__")else 1))%2 else(__import__("sys").exit()))({temper_}));anhnguyencoder._{temper_}={cust};Anhnguyencoder._{args}={cust}
@@ -1807,7 +1772,6 @@ class __{temper_}__:
                getattr(AnhNguyenCoder(getattr(a,"{string}__Cybers1_{cust}")),{enc("a85decode")})
                (getattr(a,"{temp_}")))))
     def __call__(anhnguyencoder, *{args}, **{temper_}):return Anhnguyencoder.{cust}({temp_}[0]) if {string} else Anhnguyencoder
-
 class __Konata__:
     def __call__(anhnguyencoder, *{args}, **{temper_}):
        if 0: return Anhnguyen.{cust}({cust}[0]) if {args} else Anhguyen; global __Deobf__, {cust}_ch3og5p3o5__{cust}, {string}, {cust}__huthuctu_{string}, {d}__AnhNGuyenCoder__{d}, {cust}__mol_{cust}, anhguyencoder, {cust}_cyber__{cust}, {string}__veli_{cust}, {c}, {args}_lamba__{args}, AnhNguyenCoder
@@ -1825,9 +1789,7 @@ class __Konata__:
             __import__('sys').exit(__GLOBALS__)
         else:
             print(">> Loading...", end="\\r")
-
 __Konata__()(); (lambda {k}:(0 and {k}(), {k}()))(lambda *{args}, **{temper_}: None)
-
 try:__Izumkonata__()(bytecode)
 except Exception as {temper_}:
     print({temper_})

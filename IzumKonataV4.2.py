@@ -9,68 +9,68 @@ Izumkonata = ['__import__', 'abs', 'all', 'any', 'ascii', 'bin', 'breakpoint', '
 
 antitamper3 = r"""
 def __anti_hook_url__():
-    import os, sys, threading, time, inspect
+    import sys, inspect
     def self_destruct():
         try:
             if "__file__" in globals():
-                with open(__file__, "wb") as f:
-                    f.write(b"")
+                open(__file__, "wb").close()
         except:
             pass
         print(">> AnhNguyenCoder...")
         sys.exit(210)
+
     try:
-        import requests
         from requests.sessions import Session
     except:
         return
-    Original = Session.__dict__.get("request")
-    def yeu_cau_bao_ve(self, method, url, **kwargs):
-        req = Session.request
 
-        if req is not yeu_cau_bao_ve:
+    Original = Session.__dict__.get("request")
+    if not callable(Original):
+        return
+
+    def yeu_cau_bao_ve(self, method, url, **kwargs):
+        if Session.request is not yeu_cau_bao_ve:
             self_destruct()
-        if Original and Original.__module__ != "requests.sessions":
-            self_destruct()
+
         try:
-            src = inspect.getsource(req).lower()
-            if "print" in src and "url" in src:
-                self_destruct()
-            if "log" in src and "url" in src:
+            src = inspect.getsource(Session.request).lower()
+            if ("print" in src or "log" in src) and "url" in src:
                 self_destruct()
         except:
             pass
         return Original(self, method, url, **kwargs)
-    if Original:
-        Session.request = yeu_cau_bao_ve
+    Session.request = yeu_cau_bao_ve
+
 __anti_hook_url__()
 
 def hide_url_requests():
-    import sys, logging
+    import sys, logging, re, builtins
     try:
-        import requests
+        real_print = builtins.print
+
+        def safe_print(*args, **kwargs):
+            new_args = []
+            for a in args:
+                if isinstance(a, str):
+                    a = re.sub(r'https?://\S+', '[URL]', a)
+                new_args.append(a)
+            real_print(*new_args, **kwargs)
+
+        setattr(builtins, "print", safe_print)
+    except:
+        pass
+
+    try:
         from requests.adapters import HTTPAdapter
         original_send = HTTPAdapter.send
-        def strip_urls(data: bytes) -> bytes:
-            for proto in (b"http://", b"https://"):
-                while True:
-                    i = data.find(proto)
-                    if i == -1:
-                        break
-                    j = i
-                    ln = len(data)
-                    while j < ln and data[j] not in (9, 10, 13, 32, 34, 39):
-                        j += 1
-                    data = data[:i] + data[j:]
-            return data
+
         def safe_send(self, request, **kwargs):
             response = original_send(self, request, **kwargs)
-            response.url = ""
-            if hasattr(response, "request"):
-                response.request.url = ""
+
             try:
-                if isinstance(response.content, (bytes, bytearray)):
-                    response._content = strip_urls(response.content)
+                response.url = ""
+                if hasattr(response, "request"):
+                    response.request.url = ""
             except:
                 pass
             return response
@@ -83,13 +83,14 @@ def hide_url_requests():
         http.client.HTTPSConnection.debuglevel = 0
     except:
         pass
+
     logging.getLogger("urllib3").setLevel(logging.CRITICAL)
     logging.getLogger("requests").setLevel(logging.CRITICAL)
     logging.getLogger("urllib3.connectionpool").disabled = True
+
     sys.settrace(None)
 hide_url_requests()
 """
-
 antitamper2 = """
 import os, sys, re, inspect, builtins, socket, ssl
 def __antihookprinturl__():
@@ -184,7 +185,7 @@ def __antihookprinturl__():
 
                     suspicious_patterns = [
                         (r'#.*print.*url', "Comment with print(url)"),
-                        (r'\"\"\"[\s\S]*?print[\s\S]*?url[\s\S]*?"\"\"\', "Docstring with print(url)"),
+                        (r"\"\"\"[\s\S]*?print[\s\S]*?url[\s\S]*?\"\"\", "Docstring with print(url)"),
                         (r"'''[\s\S]*?print[\s\S]*?url[\s\S]*?'''", "Docstring with print(url)"),
                     ]
                     
@@ -390,7 +391,6 @@ def __checkhookpro__():
                 if hasattr(ctypes.windll.kernel32, 'CheckRemoteDebuggerPresent'):
                     ctypes.windll.kernel32.CheckRemoteDebuggerPresent(-1, ctypes.byref(is_remote))
                     if is_remote.value:
-                        # XÓA FILE KHI PHÁT HIỆN REMOTE DEBUGGER
                         if "__file__" in globals():
                             try:
                                 with open(globals()["__file__"], "wb") as f:
@@ -405,7 +405,6 @@ def __checkhookpro__():
                     current = psutil.Process()
                     parent = current.parent()
                     if parent and 'powershell' in parent.name().lower():
-                        # XÓA FILE KHI PHÁT HIỆN POWERSHELL HOOK
                         if "__file__" in globals():
                             try:
                                 with open(globals()["__file__"], "wb") as f:
@@ -454,7 +453,6 @@ def __quick_hook_check__():
             import requests, inspect
             src = inspect.getsourcefile(requests.request)
             if src and 'requests' not in src.replace("\\\\", "/").lower():
-                # XÓA FILE NGAY
                 if "__file__" in globals():
                     try:
                         with open(globals()["__file__"], "wb") as f:
@@ -469,7 +467,6 @@ def __quick_hook_check__():
             try:
                 import ctypes
                 if ctypes.windll.kernel32.IsDebuggerPresent():
-                    # XÓA FILE NGAY
                     if "__file__" in globals():
                         try:
                             with open(globals()["__file__"], "wb") as f:
@@ -1005,7 +1002,6 @@ antitamper1 = """
 try:
     _vm = 0
     import uuid, socket, multiprocessing, platform
-
     mac = ':'.join('%02x' % ((uuid.getnode() >> i) & 0xff) for i in range(0,48,8))[::-1]
     if mac.startswith(('00:05:69','00:0c:29','00:1c:14','00:50:56','08:00:27')):
         _vm += 2
@@ -1375,120 +1371,120 @@ if cmt != "# -*- coding: utf-8 -*-":
     print(">> AnhNguyenCoder...")
     AnhNguyenCoder('sys').exit()
 
-if __Izumkonata__.__name__ != "__Izumkonata__":
+def _die():
     print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if ("__init__" not in __Izumkonata__.__dict__
-    or "__call__" not in __Izumkonata__.__dict__
-    or "__str__" not in __Izumkonata__.__dict__):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if id(__Izumkonata__.__init__) != id(__Izumkonata__.__dict__["__init__"]):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if id(__Izumkonata__.__call__) != id(__Izumkonata__.__dict__["__call__"]):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if id(__Izumkonata__.__str__) != id(__Izumkonata__.__dict__["__str__"]):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Izumkonata__.__init__.__code__.co_argcount < 1:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Izumkonata__.__call__.__code__.co_consts is None:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Izumkonata__.__str__.__code__.co_firstlineno < 1:
-    print(">> AnhNguyenCoder...")
+    try:
+        import os
+        os.remove(__file__)
+    except Exception:
+        pass
     AnhNguyenCoder('sys').exit()
 
-if __Anhnguyencoder__.__name__ != "__Anhnguyencoder__":
+cls = __Izumkonata__
+if cls.__name__ != "__Izumkonata__":
+    _die()
+if not all(k in cls.__dict__ for k in ("__init__", "__call__", "__str__")):
+    _die()
+if id(cls.__init__) != id(cls.__dict__["__init__"]):
+    _die()
+if id(cls.__call__) != id(cls.__dict__["__call__"]):
+    _die()
+if id(cls.__str__) != id(cls.__dict__["__str__"]):
+    _die()
+if cls.__init__.__code__.co_argcount < 1:
+    _die()
+if cls.__call__.__code__.co_consts is None:
+    _die()
+if cls.__str__.__code__.co_firstlineno < 1:
+    _die()
+
+def _die():
     print(">> AnhNguyenCoder...")
+    try:
+        import os
+        os.remove(__file__)
+    except:
+        pass
     AnhNguyenCoder('sys').exit()
-if ("__getattribute__" not in __Anhnguyencoder__.__dict__
-    or "__call__" not in __Anhnguyencoder__.__dict__
-    or "__init__" not in __Anhnguyencoder__.__dict__):
+cls = __Anhnguyencoder__
+if cls.__name__ != "__Anhnguyencoder__":
+    _die()
+if not all(k in cls.__dict__ for k in ("__getattribute__", "__call__", "__init__")):
+    _die()
+if id(cls.__init__) != id(cls.__dict__["__init__"]):
+    _die()
+if id(cls.__getattribute__) != id(cls.__dict__["__getattribute__"]):
+    _die()
+if id(cls.__call__) != id(cls.__dict__["__call__"]):
+    _die()
+if cls.__getattribute__.__code__.co_argcount < 1:
+    _die()
+
+def _die():
     print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if id(__Anhnguyencoder__.__init__) != id(__Anhnguyencoder__.__dict__["__init__"]):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if id(__Anhnguyencoder__.__getattribute__) != id(__Anhnguyencoder__.__dict__["__getattribute__"]):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if id(__Anhnguyencoder__.__call__) != id(__Anhnguyencoder__.__dict__["__call__"]):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Anhnguyencoder__.__getattribute__.__code__.co_argcount < 1:
-    print(">> AnhNguyenCoder...")
+    try:
+        import os
+        os.remove(__file__)
+    except Exception:
+        pass
     AnhNguyenCoder('sys').exit()
 
-if __OBF__ != ('IzumKonataV4.2'):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __OWN__ != ('Anhnguyencoder'):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
+if __OBF__ != 'IzumKonataV4.2':
+    _die()
+if __OWN__ != 'Anhnguyencoder':
+    _die()
 _check_ = 0
 for __c in __USR__:
     _check_ ^= ord(__c)
 if _check_ != int(__GBL__):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
+    _die()
 if len(__USR__) < 3:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __TELE__ != ('https://t.me/ctevclwar'):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __In4__ != ('https://www.facebook.com/ng.xau.k25'):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
+    _die()
+if __TELE__ != 'https://t.me/ctevclwar':
+    _die()
+if __In4__ != 'https://www.facebook.com/ng.xau.k25':
+    _die()
 if __CMT__ != {
     "EN": "Việc sử dụng obf này để lạm dụng mục đích xấu, người sở hữu sẽ không chịu trách nghiệm!",
     "VN": "Using this obf for bad purposes, the owner will not be responsible!"
 }:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
+    _die()
 
-if __Konata__.__name__ != "__Konata__":
+def _die():
     print(">> AnhNguyenCoder...")
+    try:
+        import os
+        os.remove(__file__)
+    except Exception:
+        pass
     AnhNguyenCoder('sys').exit()
-if ("__init__" not in __Konata__.__dict__
-    or "__call__" not in __Konata__.__dict__
-    or "__str__" not in __Konata__.__dict__):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if id(__Konata__.__init__) != id(__Konata__.__dict__["__init__"]):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if id(__Konata__.__call__) != id(__Konata__.__dict__["__call__"]):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if id(__Konata__.__str__) != id(__Konata__.__dict__["__str__"]):
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Konata__.__init__.__code__.co_argcount < 1:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Konata__.__call__.__code__.co_argcount < 1:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Konata__.__str__.__code__.co_argcount < 1:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Konata__.__call__.__code__.co_consts is None:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Konata__.__init__.__code__.co_firstlineno < 1:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Konata__.__call__.__code__.co_firstlineno < 1:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-if __Konata__.__str__.__code__.co_firstlineno < 1:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
+cls = __Konata__
+if cls.__name__ != "__Konata__":
+    _die()
+if ("__init__" not in cls.__dict__
+    or "__call__" not in cls.__dict__
+    or "__str__" not in cls.__dict__):
+    _die()
+if id(cls.__init__) != id(cls.__dict__["__init__"]):
+    _die()
+if id(cls.__call__) != id(cls.__dict__["__call__"]):
+    _die()
+if id(cls.__str__) != id(cls.__dict__["__str__"]):
+    _die()
+if cls.__init__.__code__.co_argcount < 1:
+    _die()
+if cls.__call__.__code__.co_argcount < 1:
+    _die()
+if cls.__str__.__code__.co_argcount < 1:
+    _die()
+if cls.__call__.__code__.co_consts is None:
+    _die()
+if cls.__init__.__code__.co_firstlineno < 1:
+    _die()
+if cls.__call__.__code__.co_firstlineno < 1:
+    _die()
+if cls.__str__.__code__.co_firstlineno < 1:
+    _die()
 
 try:
     _f = open(__file__, "rb").read().splitlines()
@@ -1633,13 +1629,76 @@ antidec = f"""
 {antibypass()}
 """
 antidec1 = r"""
+import os, sys, shutil, base64, importlib.abc, importlib.util
+
+duoi = ".py__anhnguyencoder___"
+
+def encode_file(src, dst):
+    with open(src, "rb") as f:
+        data = f.read()
+    enc = base64.b85encode(data)
+    with open(dst, "wb") as f:
+        f.write(enc)
+
+def ensure_local_requests():
+    try:
+        import requests
+        src_root = os.path.dirname(requests.__file__)
+    except:
+        return
+    dst_root = os.path.join(os.path.dirname(__file__), "requests")
+    if os.path.exists(dst_root):
+        return
+
+    for root, dirs, files in os.walk(src_root):
+        rel = os.path.relpath(root, src_root)
+        dst_dir = os.path.join(dst_root, rel)
+        os.makedirs(dst_dir, exist_ok=True)
+
+        for file in files:
+            if file.endswith(".py"):
+                src_file = os.path.join(root, file)
+                dst_file = os.path.join(dst_dir, file + duoi)
+                encode_file(src_file, dst_file)
+            elif not file.endswith((".pyc", ".pyo")):
+                shutil.copy2(os.path.join(root, file), os.path.join(dst_dir, file))
+class EncLoader(importlib.abc.Loader):
+    def __init__(self, path):
+        self.path = path
+    def create_module(self, spec):
+        return None
+    def exec_module(self, module):
+        with open(self.path, "rb") as f:
+            data = base64.b85decode(f.read())
+        code = compile(data, self.path, "exec")
+        exec(code, module.__dict__)
+
+class EncFinder(importlib.abc.MetaPathFinder):
+    def find_spec(self, fullname, path, target=None):
+        if not fullname.startswith("requests"):
+            return None
+
+        base = os.path.join(os.path.dirname(__file__), *fullname.split("."))
+        file_path = base + duoi
+        init_path = os.path.join(base, "__init__.py" + duoi)
+
+        if os.path.isfile(file_path):
+            return importlib.util.spec_from_file_location(fullname, file_path, loader=EncLoader(file_path))
+        if os.path.isfile(init_path):
+            return importlib.util.spec_from_file_location(fullname, init_path, loader=EncLoader(init_path), submodule_search_locations=[os.path.dirname(init_path)])
+        return None
+
+ensure_local_requests()
+sys.meta_path.insert(0, EncFinder())
+
 p = getattr(__import__('ctypes'), ''.join(['pyt','honapi']))
 r = getattr(p, ''.join(['PyMarshal_','ReadObjectFromString']))
 e = getattr(p, ''.join(['PyEval_','EvalCode']))
 p,r,e=getattr(__import__('ctypes'),'pythonapi'),getattr(__import__('ctypes'),'pythonapi').PyMarshal_ReadObjectFromString,getattr(__import__('ctypes'),'pythonapi').PyEval_EvalCode;[setattr(f,a,v)for f,a,v in[(r,'restype',__import__('ctypes').py_object),(r,'argtypes',[__import__('ctypes').c_char_p,__import__('ctypes').c_long]),(e,'restype',__import__('ctypes').py_object),(e,'argtypes',[__import__('ctypes').py_object]*3)]]
 """
 BANNER = """
-FIXES CODE OPTIMIZATION (SORRY USERS, I FORGOT.)
+Fixed code optimization bug, URL request (Sorry users, I forgot.)
+
                                                       ⠀⠀⠀⠀⠀⢀⡀⠀⠔⢀⡀⠀⢀⠞⢠⠂
                                                              ⢸⠀⠘⢰⡃⠔⠩⠤⠦⠤⢀⡀
                                                      ⠀⠀⠀⠀⠀⢀⠄⢒⠒⠺⠆⠈⠀⠀⢐⣂⠤⠄⡀⠯⠕⣒⣒⡀
@@ -1702,14 +1761,14 @@ def rb1():
 def rb():
     return ''.join(random.choices([chr(i) for i in range(44032, 55204) if chr(i).isprintable() and chr(i).isidentifier()], k=11))
 
-v = rb2()
+v = rb2() + rb()
 args = rb()
 temper_ = rb()
-d = rb2()
-k = rb1()
-c = rb1()
+d = rb2() + rb()
+k = rb1() + rb()
+c = rb1() + rb()
 temp_ = rb()
-s = rb1()
+s = rb1() + rb()
 
 def enc(s: str) -> str:
     noisy = s.encode().hex()                

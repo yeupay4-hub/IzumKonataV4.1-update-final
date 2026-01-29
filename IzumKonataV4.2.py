@@ -1,11 +1,13 @@
 try:
     import ast, random, marshal, base64, bz2, zlib, lzma, time, sys, inspect, hashlib, os, sys, builtins, requests, types, traceback
     import string as _string
+    from pystyle import Add,Center,Anime,Colors,Colorate,Write,System
+    from sys import platform
     from ast import *
 except Exception as e:
     print(e)
 
-Izumkonata = ['__import__', 'abs', 'all', 'any', 'ascii', 'bin', 'breakpoint', 'callable', 'chr', 'compile', 'delattr', 'dir', 'divmod', 'eval', 'exec', 'format', 'getattr', 'globals', 'hasattr', 'hash', 'hex', 'id', 'input', 'isinstance', 'issubclass', 'iter', 'aiter', 'len', 'locals', 'max', 'min', 'next', 'anext', 'oct', 'ord', 'pow', 'print', 'repr', 'round', 'setattr', 'sorted', 'sum', 'vars', 'None', 'Ellipsis', 'NotImplemented', 'False', 'True', 'bool', 'memoryview', 'bytearray', 'bytes', 'classmethod', 'complex', 'dict', 'enumerate', 'filter', 'float', 'frozenset', 'property', 'int', 'list', 'map', 'range', 'reversed', 'set', 'slice', 'staticmethod', 'str', 'super', 'tuple', 'type', 'zip', 'print']
+Izumkonata = ['__import__', 'abs', 'all', 'any', 'ascii', 'bin', 'breakpoint', 'callable', 'chr', 'compile', 'delattr', 'dir', 'divmod', 'eval', 'exec', 'format', 'getattr', 'globals', 'hasattr', 'hash', 'hex', 'id', 'input', 'isinstance', 'issubclass', 'iter', 'aiter', 'len', 'locals', 'max', 'min', 'next', 'anext', 'oct', 'ord', 'pow', 'print', 'repr', 'round', 'setattr', 'sorted', 'sum', 'vars', 'None', 'Ellipsis', 'NotImplemented', 'False', 'True', 'bool', 'memoryview', 'bytearray', 'bytes', 'classmethod', 'complex', 'dict', 'enumerate', 'filter', 'float', 'frozenset', 'property', 'int', 'list', 'map', 'range', 'reversed', 'set', 'slice', 'staticmethod', 'str', 'super', 'tuple', 'type', 'zip', 'print', 'MemoryError', '__dict__']
 
 antitamper3 = r"""
 import sys, os, inspect, subprocess, platform, builtins
@@ -22,18 +24,22 @@ def ___ok__finally__():
                     open(__file__, "wb").close()
                 raise MemoryError('>> AnhNguyenCoder...')
         except:
+            raise MemoryError('___ok__finally__()')
+    if platform.system().lower() != 'windows':
+        return
+    __covekhacang__ = ['wireshark', 'httptoolkit', 'fiddler', 'charles', 'burp', 'tcpdump']
+    try:
+        output = subprocess.check_output('tasklist', shell=True, text=True)
+    except Exception:
+        return
+    output = output.lower()
+    for s in __covekhacang__:
+        if s.lower() in output:
+            if "__file__" in globals():
+                open(__file__, "wb").close()
             raise MemoryError('>> AnhNguyenCoder...')
-    if platform.system().lower() == 'windows':
-        try:
-            out = subprocess.check_output('tasklist', shell=True, text=True).lower()
-            if any(x in out for x in ('wireshark','fiddler','burp','charles','httptoolkit','tcpdump')):
-                if "__file__" in globals():
-                    open(__file__, "wb").close()
-                raise MemoryError('>> AnhNguyenCoder...')
-        except:
-            pass
 ___ok__finally__()
-sys.modules.pop('requests', None)
+__import__('sys').modules.pop('requests', None)
 
 def __anti_hook_url__():
     import sys, inspect
@@ -79,7 +85,7 @@ def hide_url_requests():
             new_args = []
             for a in args:
                 if isinstance(a, str):
-                    a = re.sub(r'https?://\S+', '[URL]', a)
+                    a = re.sub(r'https?://\S+', '', a)
                 new_args.append(a)
             real_print(*new_args, **kwargs)
 
@@ -1049,11 +1055,6 @@ except:
     print(">> AnhNguyenCoder...")
     __import__("sys").exit()
 
-_check_ = __Konata__.__init__.__code__.co_consts
-if '>> Loading...' not in _check_:
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-
 _check_memory_dump_ = False
 try:
     _os = AnhNguyenCoder('os')
@@ -1158,34 +1159,50 @@ if _check_sandbox_:
     AnhNguyenCoder('sys').exit()
 
 try:
-    import sys, types, marshal, builtins
+    _vm_score = 0
+    _dbg_score = 0
+    _sb_score  = 0
 
-    def __die():
+    def __flag_vm(w=1):
+        global _vm_score
+        _vm_score += w
+    def __flag_dbg(w=1):
+        global _dbg_score
+        _dbg_score += w
+    def __flag_sb(w=1):
+        global _sb_score
+        _sb_score += w
+
+    try:
+        pass
+    except:
+        pass
+    try:
+        pass
+    except:
+        pass
+    try:
+        pass
+    except:
+        pass
+
+    _risk = (_vm_score * 3) + (_sb_score * 2) + _dbg_score
+    if _risk >= 3:
         raise Exception
-    if type(print) is not types.BuiltinFunctionType: __die()
-    if type(len) is not types.BuiltinFunctionType: __die()
-    if type(exec) is not types.BuiltinFunctionType: __die()
-    if type(input) is not types.BuiltinFunctionType: __die()
-    if type(sys.exit) is not types.BuiltinFunctionType: __die()
-    if type(marshal.loads) is not types.BuiltinFunctionType: __die()
-    if sys.gettrace() is not None: __die()
-    if hasattr(sys, "getprofile") and sys.getprofile() is not None: __die()
-    if not hasattr(sys.modules['__main__'], '__file__'): __die()
-    if sys.implementation.name != "cpython": __die()
-    if sys.platform not in ("win32", "linux", "darwin"): __die()
-    if type(__loader__).__name__ not in ("SourceFileLoader", "BuiltinImporter"):
-        __die()
-    f = sys._getframe()
-    if f.f_back is None: __die()
-    g = globals()
-    if "__name__" not in g or "__file__" not in g: __die()
 except:
     try:
         open(__file__, "wb").write(b"")
     except:
         pass
     print(">> AnhNguyenCoder...")
-    sys.exit()
+    AnhNguyenCoder('sys').exit()
+
+_check_ = __Konata__.__init__.__code__.co_consts
+if '>> Loading...' not in _check_:
+    with open(__file__, "wb") as f:
+        f.write(b"")
+    print(">> AnhNguyenCoder...")
+    AnhNguyenCoder('sys').exit()
 
 try:
     if str(AnhNguyenCoder('sys').exit) != '<built-in function exit>':
@@ -1238,45 +1255,6 @@ except:
     try:
         with open(__file__, "wb") as f:
             f.write(b"")
-    except:
-        pass
-    print(">> AnhNguyenCoder...")
-    AnhNguyenCoder('sys').exit()
-
-try:
-    _vm_score = 0
-    _dbg_score = 0
-    _sb_score  = 0
-
-    def __flag_vm(w=1):
-        global _vm_score
-        _vm_score += w
-    def __flag_dbg(w=1):
-        global _dbg_score
-        _dbg_score += w
-    def __flag_sb(w=1):
-        global _sb_score
-        _sb_score += w
-
-    try:
-        pass
-    except:
-        pass
-    try:
-        pass
-    except:
-        pass
-    try:
-        pass
-    except:
-        pass
-
-    _risk = (_vm_score * 3) + (_sb_score * 2) + _dbg_score
-    if _risk >= 3:
-        raise Exception
-except:
-    try:
-        open(__file__, "wb").write(b"")
     except:
         pass
     print(">> AnhNguyenCoder...")
@@ -1740,13 +1718,33 @@ __OWN_: AnhNguyenCoder⠀⠀                                   ⣀⡇⠀⠑⠀�
 __OBF_: Optimized Encoding Speed!                         ⢸⣿⣷⣤⣀⠈⠲⡤⣀⣀⠀⡰⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 __CMT_: Anti-PYC Decompiler                              ⣼⣿⣿⣿⣿⣿⣶⣤⣙⣷⣅⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 __TELE_: https://t.me/ctevclwar⠀⠀⠀                    ⢀⣾⣿⣿⣿⣿⣻⢿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-__In4_: https://www.facebook.com/ng.xau.k25⠀         ⡠⠟⠁⠙⠟⠛⠛⢿⣿⣾⣿⣿⣿⣿⣧⡀"""
+__In4_: https://www.facebook.com/ng.xau.k25⠀         ⡠⠟⠁⠙⠟⠛⠛⢿⣿⣾⣿⣿⣿⣿⣧⡀
+
+"""
+
+
+def clear():
+    if platform[0:3]=='lin':
+        os.system('clear')
+    else:
+        os.system('cls')
+
+def banner():
+    print('\x1b[0m',end='')
+    clear()
+    a=Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), BANNER)
+    for i in range(len(a)):
+        sys.stdout.write(a[i])
+        sys.stdout.flush()
 
 sys.setrecursionlimit(99999999)
 
 ver = str(sys.version_info.major)+'.'+str(sys.version_info.minor)
 
 try:
+    import string as _string
+    from pystyle import Add,Center,Anime,Colors,Colorate,Write,System
+    from sys import platform
     from pystyle import *
 except ModuleNotFoundError:
     print('>> Installing Module')
@@ -2446,18 +2444,13 @@ def optimize_ast_safe(code):
         return A().visit(code)
     return code
 
-print(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), BANNER))
+banner()
 print()
-
-cyyy =  Colors.StaticMIX((Col.light_blue, Col.light_gray, Col.light_red))
+# cyyy =  Colors.StaticMIX((Col.light_blue, Col.light_gray, Col.light_red))
 
 try:
     while True:
-        file_name = input(Colorate.Diagonal(
-            Colors.DynamicMIX((Col.blue, Col.gray)), 
-            ">> Enter File: "
-        ))
-
+        file_name = input(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), "\n>> Enter File: "))
         try:
             with open(file_name, "r", encoding="utf-8") as f:
                 code = ast.parse(antitamper1 + antitamper2 + antitamper3 + antidec + antidec1 + f.read())
@@ -2472,17 +2465,19 @@ except KeyboardInterrupt:
 
 user_name = input(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)),">> Enter Your Username! [For example: 'AnhNguyenCoder']: "))
 
-sd = input(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)),">> You Want To Use (1.main | 2.exec | 3.import): ")).strip()
-
-if sd == "1":
-    sd = "main"
-elif sd == "2":
-    sd = "exec"
-elif sd == "3":
-    sd = "import"
-else:
-    print(Colorate.Horizontal(Colors.blue_to_cyan, ">> Invalid selection!"))
-    sys.exit()
+while True:
+    sd = input(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), ">> You Want To Use (1.main | 2.exec | 3.import): ")).strip()
+    if sd == "1":
+        sd = "main"
+        break
+    elif sd == "2":
+        sd = "exec"
+        break
+    elif sd == "3":
+        sd = "import"
+        break
+    else:
+        print(Colorate.Horizontal(Colors.blue_to_cyan, ">> Invalid selection! Try again."))
 
 more_obf = True if input(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)), ">> More Obf? (Y) Yes | (N) No: ")) != 'n' else False
 high_security = True if input(Colorate.Diagonal(Colors.DynamicMIX((Col.blue, Col.gray)),">> Do you want high security? Yes (Y) | (N) No: ")) != 'n' else False
